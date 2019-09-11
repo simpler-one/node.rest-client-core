@@ -14,12 +14,14 @@ function one(value: string, env: {}): {} {
 
         const evalStart = start + 2;
         const end = value.indexOf('}}', evalStart); // [TODO] avoid '' "" ``
+        if (end < 0) {
+            throw new Error(`Syntax error. "}}" not found after: ${start}`);
+        }
 
         results.push(
             values.substr(p, start - p),
             eval(`${envValues} ${value.substr(evalStart, end - evalStart)}`),
         );
-
         p = end + 2;
     }
 
@@ -36,9 +38,20 @@ function one(value: string, env: {}): {} {
     return results.join('');
 }
 
-function request()
+function request(request: RequestConfigRequest, env: {}): RestRequest {
+    return {
+        method: request.method,
+        url: `${value(request.url, env)}`,
+        headers: requestHeaders(request.headers, env),
+        body: value(request.body, env),
+    };
+}
 
-function requestHeaders()
+function requestHeaders(headers: {[key: string]: string}, env: {}) {
+    if (!headers) return {};
+
+
+}
 
 function expandEnv(env: {}): string {
     if (!env) return '';
