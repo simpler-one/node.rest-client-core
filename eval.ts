@@ -50,7 +50,12 @@ function request(request: RequestConfigRequest, env: {}): RestRequest {
 function requestHeaders(headers: {[key: string]: string}, env: {}) {
     if (!headers) return {};
 
-
+    return Object.keys(headers)
+    .map(key => ({ key, value: value(headers[key]) }))
+    .reduce((result, cur) => {
+        result[cur.key] = cur.value;
+        return result;
+    }, {});
 }
 
 function expandEnv(env: {}): string {
