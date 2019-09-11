@@ -26,7 +26,7 @@ function one(value: string, env: {}): {} {
     }
 
     for (let i = 1; i < results.length; i += 2) {
-        if (typeof results[i] === 'object') {
+        if (results[i] instanceof Object) {
             results[i] = JSON.stringify(results[i])
         }
     }
