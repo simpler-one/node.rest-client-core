@@ -1,4 +1,6 @@
-one(value: string, env: {}): {} {
+function one(value: string, env: {}): {} {
+    const envValues = expandEnv(env);
+
     const results = [];
     let p = 0;
     while (p < value.length) {
@@ -11,17 +13,34 @@ one(value: string, env: {}): {} {
         const evalStart = start + 2;
         const end = value.indexOf('}}', evalStart);
 
+        results.push(
+            values.substr(p, start - p),
+            eval(`${envValues} ${value.substr(evalStart, end - evalStart)}`),
+        );
 
+        p = end + 2;
     }
+
+    if (results.length === 2 && results[0] === '') {
+        return results[1];
+    }
+
+    for (let i = 1; i < results.length; i += 2) {
+        if (typeof results[i] === 'object') {
+            results[i] = JSON.stringify(results[i])
+        }
+    }
+
+    return results.join('');
 }
 
-request()
+function request()
 
-requestHeaders()
+function requestHeaders()
 
-expandEnv(env: {}): string {
+function expandEnv(env: {}): string {
     if (!env) return '';
 
     const envValues = Object.keys(env).map(key => `${key}=env[${key}]`)
-    return envValues.length > 0 `let ${envValues.join(',')}` : '';
+    return envValues.length > 0 `let ${envValues.join(',')};` : '';
 }
