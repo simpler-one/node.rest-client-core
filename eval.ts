@@ -1,4 +1,6 @@
 function one(value: string, env: {}): {} {
+    if (!value) return '';
+
     const envValues = expandEnv(env);
 
     const results = [];
@@ -11,7 +13,7 @@ function one(value: string, env: {}): {} {
         }
 
         const evalStart = start + 2;
-        const end = value.indexOf('}}', evalStart);
+        const end = value.indexOf('}}', evalStart); // [TODO] avoid '' "" ``
 
         results.push(
             values.substr(p, start - p),
