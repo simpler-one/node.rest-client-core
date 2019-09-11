@@ -10,14 +10,16 @@ export interface Headers {
 
 export interface ConfigItem {
     name: string;
-    type: string;
+    type: ConfigType;
 }
 
 export interface GroupConfigItem extends ConfigItem {
+    type: ConfigType.Group;
     items: ConfigItem[];
 }
 
-export interface RequestConfigItem extends Config {
+export interface RequestConfigItem extends ConfigItem {
+    type: ConfigType.Request;
     url: string;
     method: string;
     headers: Headers;
