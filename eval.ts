@@ -38,7 +38,7 @@ function one(value: string, env: {}): {} {
     return results.join('');
 }
 
-function request(request: RequestConfigRequest, env: {}): RestRequest {
+function request(request: RequestConfig, env: {}): RestRequest {
     return {
         method: request.method,
         url: `${value(request.url, env)}`,
