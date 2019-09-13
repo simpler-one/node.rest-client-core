@@ -13,12 +13,12 @@ export interface ConfigItem {
     type: ConfigType;
 }
 
-export interface GroupConfigItem extends ConfigItem {
+export interface GroupConfig extends ConfigItem {
     type: ConfigType.Group;
     items: ConfigItem[];
 }
 
-export interface RequestConfigItem extends ConfigItem {
+export interface RequestConfig extends ConfigItem {
     type: ConfigType.Request;
     url: string;
     method: string;
